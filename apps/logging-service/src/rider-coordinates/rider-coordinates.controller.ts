@@ -1,18 +1,24 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CreateCoordinatesRequest } from './types/create-coordinates.types';
 import { create } from 'domain';
+import { RiderCoordinatesService } from './rider-coordinates.service';
 
 @Controller('rider-coordinates')
 export class RiderCoordinatesController {
-    @Get()
-    getRiderCoordinates() {
-        return 'Hello from Rider Coordinates!';
+
+    constructor(
+        private readonly riderCoordinatesService: RiderCoordinatesService,
+    ) { }
+
+    @Get(':id')
+    async getRiderCoordinates(@Param() params: any) {
+        return this.riderCoordinatesService.getRiderCoordinates(params.id);
     }
 
-    @Post()
-    saveRiderCoordinates(
+    @Post() 
+    async saveRiderCoordinates(
         @Body() createCoordinatesRequest: CreateCoordinatesRequest,
     ) {
-        return createCoordinatesRequest
+        return this.riderCoordinatesService.saveRiderCoordinates(createCoordinatesRequest);
     }
 }

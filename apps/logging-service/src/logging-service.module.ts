@@ -6,10 +6,10 @@ import { RiderCoordinatesModule } from './rider-coordinates/rider-coordinates.mo
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://localhost:27017/logging_service'),
+    MongooseModule.forRoot('mongodb://root:root@localhost:27017/logging_service_db?authSource=admin'),
     RiderCoordinatesModule,
   ],
   controllers: [LoggingServiceController],
   providers: [LoggingServiceService],
 })
-export class LoggingServiceModule {}
+export class LoggingServiceModule { }
